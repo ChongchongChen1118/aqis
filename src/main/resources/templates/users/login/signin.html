@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>用户注册页</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/users/static/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/users/static/index/css/style.css}" rel="stylesheet">
+    <script th:src="@{/users/static/index/js/jquery.min.js}"></script>
+    <script th:src="@{/users/static/index/js/popper.min.js}"></script>
+    <script th:src="@{/users/static/index/js/bootstrap.min.js}"></script>
+    <script th:src="@{/users/static/index/js/scripts.js}"></script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="/users/module/user::header"></div>
+    <br><br><br><br><br><br><br>
+    <div class="row" th:if="${judgment==0}">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>注册失败！</strong> <br> 因不可抗力因素注册失败，请重新注册！
+            </div>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <form th:action="@{/user/signinJudgment}" method="post">
+                <div th:if="${confirm==1}">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">账号</label>
+                            <input type="text" name="account" class="form-control" id="exampleInputEmail1"
+                                   aria-describedby="emailHelp"
+                                   placeholder="Account">
+                            <small id="emailHelp" class="form-text text-muted">请输入您要注册的账号！</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">密码</label>
+                            <input type="password" name="pass1" class="form-control" id="exampleInputPassword1"
+                                   placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword2">确认密码</label>
+                            <input type="password" name="pass2" class="form-control" id="exampleInputPassword2"
+                                   placeholder="Confirm password">
+                        </div>
+                        <div align="center">
+                            <button type="submit" class="btn btn-primary">注册</button>
+                        </div>
+                    </fieldset>
+                </div>
+                <div th:if="${confirm==2}">
+                    <div class="form-group">
+                        <label for="exampleInputEmail3">账号</label>
+                        <input type="text" name="account" class="form-control" id="exampleInputEmail3"
+                               aria-describedby="emailHelp"
+                               placeholder="Account" th:value="${account}">
+                        <small id="emailHelp1" class="form-text text-muted">请输入您要注册的账号！</small>
+                    </div>
+
+                    <div class="form-group has-danger">
+                        <label class="form-control-label" for="inputInvalid6">密码</label>
+                        <input type="password" name="pass1" class="form-control is-invalid" id="inputInvalid6"
+                               placeholder="Password">
+                        <div class="invalid-feedback">两次密码输入不一致，请重新输入！</div>
+                    </div>
+
+                    <div class="form-group has-danger">
+                        <label class="form-control-label" for="inputInvalid7">确认密码</label>
+                        <input type="password" name="pass2" class="form-control is-invalid" id="inputInvalid7"
+                               placeholder="Confirm password">
+                        <div class="invalid-feedback">两次密码输入不一致，请重新输入！</div>
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-primary">注册</button>
+                    </div>
+                </div>
+                <div th:if="${confirm==3}">
+                    <label class="form-control-label" for="inputInvalid5">账号</label>
+                    <input type="text" name="account" class="form-control is-invalid" id="inputInvalid5"
+                           placeholder="Account">
+                    <div class="invalid-feedback">账号已存在，请重新输入！</div>
+
+                    <div class="form-group has-danger">
+                        <label class="form-control-label" for="inputInvalid1">密码</label>
+                        <input type="password" name="pass1" class="form-control is-invalid" id="inputInvalid1"
+                               placeholder="Password">
+                        <div class="invalid-feedback">账号已存在，请重新输入！</div>
+                    </div>
+
+                    <div class="form-group has-danger">
+                        <label class="form-control-label" for="inputInvalid2">确认密码</label>
+                        <input type="password" name="pass2" class="form-control is-invalid" id="inputInvalid2"
+                               placeholder="Confirm password">
+                        <div class="invalid-feedback">账号已存在，请重新输入！</div>
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-primary">注册</button>
+                    </div>
+                </div>
+                <div th:if="${confirm==4}">
+                    <div class="form-group has-danger">
+                        <label for="exampleInputEmail13" class="form-control-label">账号</label>
+                        <input type="text" name="account" class="form-control is-invalid" id="exampleInputEmail13"
+                               placeholder="Account" th:value="${account}">
+                        <div class="invalid-feedback">内容输入不完整，请重新输入！</div>
+                    </div>
+
+                    <div class="form-group has-danger">
+                        <label class="form-control-label" for="inputInvalid11">密码</label>
+                        <input type="password" name="pass1" class="form-control is-invalid" id="inputInvalid11"
+                               placeholder="Password">
+                        <div class="invalid-feedback">内容输入不完整，请重新输入！</div>
+                    </div>
+
+                    <div class="form-group has-danger">
+                        <label class="form-control-label" for="inputInvalid12">确认密码</label>
+                        <input type="password" name="pass2" class="form-control is-invalid" id="inputInvalid12"
+                               placeholder="Confirm password">
+                        <div class="invalid-feedback">内容输入不完整，请重新输入！</div>
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-primary">注册</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <br><br><br>
+    <div th:replace="/users/module/user::footer"></div>
+</div>
+
+</body>
+</html>

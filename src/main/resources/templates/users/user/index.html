@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>公众端首页</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/users/static/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/users/static/index/css/style.css}" rel="stylesheet">
+    <script th:src="@{/users/static/index/js/jquery.min.js}"></script>
+    <script th:src="@{/users/static/index/js/popper.min.js}"></script>
+    <script th:src="@{/users/static/index/js/bootstrap.min.js}"></script>
+    <script th:src="@{/users/static/index/js/scripts.js}"></script>
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <script th:src="@{/users/static/other/js/jquery.min.js}"> </script>
+
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="/users/module/user::header"></div>
+    <br><br><br><br><br>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="carousel slide" id="carousel-207376">
+                <ol class="carousel-indicators">
+                    <li data-slide-to="0" data-target="#carousel-207376" class="active">
+                    </li>
+                    <li data-slide-to="1" data-target="#carousel-207376">
+                    </li>
+                    <li data-slide-to="2" data-target="#carousel-207376">
+                    </li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <a th:href="@{/user/feedback/1}">
+                        <img class="d-block w-100" alt="Carousel Bootstrap First"
+                             th:src="@{/users/photo/index1.png}">
+                        </a>
+                    </div>
+                    <div class="carousel-item">
+                        <a th:href="@{/user/allworkout/1}">
+                        <img class="d-block w-100" alt="Carousel Bootstrap Second"
+                             th:src="@{/users/photo/index2.png}">
+                        </a>
+                    </div>
+                    <div class="carousel-item">
+                        <a th:href="@{/user/allcity/1}">
+                        <img class="d-block w-100" alt="Carousel Bootstrap Third"
+                             th:src="@{/users/photo/index3.png}">
+                        </a>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carousel-207376" data-slide="prev"><span
+                        class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a
+                    class="carousel-control-next" href="#carousel-207376" data-slide="next"><span
+                    class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="area-title">部分AQI检测网格员</div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="teamwork" class="teamwork">
+                <div class="container">
+                    <div class="team-head">
+                        <h3>优秀网格员</h3>
+                        <h4>蓝天守护计划</h4>
+                    </div>
+                    <div class="clients">
+                        <div class="course_demo1">
+                            <ul id="flexiselDemo1">
+                                <li th:each="list11:${list11}">
+                                    <div class="client">
+                                        <img th:src="@{${list11.insPhoto}}" alt="" width="150px" class="aaa"/>
+                                        <h3 th:text="${list11.insName}"></h3>
+                                        <h4 th:text="'满意数 '+${list11.insContribution}+' 次'"></h4>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <link rel="stylesheet" th:href="@{/users/static/other/css/flexslider.css}" type="text/css" media="screen" />
+                        <script type="text/javascript">
+                            $(window).load(function() {
+                                $("#flexiselDemo1").flexisel({
+                                    visibleItems: 4,
+                                    animationSpeed: 1000,
+                                    autoPlay: true,
+                                    autoPlaySpeed: 3000,
+                                    pauseOnHover: true,
+                                    enableResponsiveBreakpoints: true,
+                                    responsiveBreakpoints: {
+                                        portrait: {
+                                            changePoint:480,
+                                            visibleItems: 1
+                                        },
+                                        landscape: {
+                                            changePoint:640,
+                                            visibleItems: 2
+                                        },
+                                        tablet: {
+                                            changePoint:768,
+                                            visibleItems: 3
+                                        }
+                                    }
+                                });
+
+                            });
+                        </script>
+                        <script type="text/javascript" th:src="@{/users/static/other/js/jquery.flexisel.js}"></script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="area-title">近期更新城市监测记录（近10条）</div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                <tr class="table-active" align="center">
+                    <th scope="row">编号</th>
+                    <th scope="row">省/自治区/直辖市</th>
+                    <th scope="row">市/县/区</th>
+                    <th scope="row">检测空气质量</th>
+                    <th scope="row">空气质量颜色</th>
+                    <th scope="row">检测网格员</th>
+                    <th scope="row">检测提交时间</th>
+                    <th scope="row">状态</th>
+                    <th scope="row">操作</th>
+                </tr>
+                </thead>
+                <tbody class="table-hover">
+                <div th:each="all,aStat:${list}">
+                    <tr class="table-light" align="center">
+                        <td th:text="${aStat.index+1}" class="align-middle"></td>
+                        <td th:text="${all.prName}" class="align-middle"></td>
+                        <td th:text="${all.ciName}" class="align-middle"></td>
+                        <td th:text="${all.aqName}" class="align-middle"></td>
+                        <td class="align-middle"><div th:style="'width:70px;height:20px;background-color:'+${all.aqColor}"></div></td>
+                        <td th:text="${all.insName}" class="align-middle"></td>
+                        <td th:text="${all.woDate}" class="align-middle"></td>
+                        <td th:text="待解决" class="align-middle" th:if="${all.idOut==0}"></td>
+                        <td th:text="已解决" class="align-middle" th:if="${all.idOut!=0}"></td>
+                        <td>
+                            <a id="modal-471745" th:href="'#modal-container-4717'+${aStat.index+1}" data-toggle="modal"><button type="button" class="btn btn-outline-primary" data-dismiss="modal">检测详情</button></a>
+                        </td>
+                        <div class="modal fade" th:id="'modal-container-4717'+${aStat.index+1}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="myModalLabel">
+                                            检测详情
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <div><img th:src="@{${all.woPhoto}}" width="100%" class="col-center"></div>
+                                            <br>
+                                            <div th:text="'省/自治区/直辖市：'+${all.prName}"></div>
+                                            <div th:text="'市/县/区：'+${all.ciName}"></div>
+                                            <div th:text="'监测空气质量：'+${all.aqName}"></div>
+                                            <div th:text="'检测SO2值：'+${all.woSo}+' ug/m3'"></div>
+                                            <div th:text="'检测CO值：'+${all.woCo}+' ug/m3'"></div>
+                                            <div th:text="'检测PM2.5值：'+${all.woPm}+' ug/m3'"></div>
+                                            <div th:text="'检测员：'+${all.insName}"></div>
+                                            <div th:text="'检测员编号：'+${all.woInsCid}"></div>
+                                            <div th:text="'监测时间：'+${all.woDate}"></div>
+                                            <div th:text="'状态：待解决'" th:if="${all.idOut==0}"></div>
+                                            <div th:text="'状态：已解决'" th:if="${all.idOut!=0}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">
+                                            关闭
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
+<div th:replace="/users/module/user::footer"></div>
+</body>
+</html>

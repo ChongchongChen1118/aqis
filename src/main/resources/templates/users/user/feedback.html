@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>空气质量反馈</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/users/static/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/users/static/index/css/style.css}" rel="stylesheet">
+    <script th:src="@{/users/static/index/js/jquery.min.js}"></script>
+    <script th:src="@{/users/static/index/js/popper.min.js}"></script>
+    <script th:src="@{/users/static/index/js/bootstrap.min.js}"></script>
+    <script th:src="@{/users/static/index/js/scripts.js}"></script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="/users/module/user::header"></div>
+    <br><br><br><br><br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">
+                空气质量反馈
+            </h3>
+            <a id="modal-471703" href="#modal-container-471704" class="dropdown-item text-center text-primary" data-toggle="modal">查看空气评级信息</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal fade" id="modal-container-471704" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">
+                                空气评级信息
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                           <img th:src="@{/users/photo/01.png}" width="100%" class="col-center">
+                            <br><br>
+                           <img th:src="@{/users/photo/02.png}" width="100%" class="col-center">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">
+                                关闭
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-dismissible alert-success" th:if="${judgment==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>反馈成功！</strong> <br> 您可以回到主页面继续您的操作
+            </div>
+            <div class="alert alert-dismissible alert-danger" th:if="${judgment==0}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>警告！</strong> <br> 内容填写不完整，请补全内容
+            </div>
+            <br>
+            <form method="post" th:action="@{/user/feedbackjudgment}" enctype="multipart/form-data">
+                <input type="hidden" name="idUser" th:value="${session.user.usId}">
+                <input type="hidden" name="cid" th:value="${cid1}">
+                <div class="form-group">
+                    <label for="bind2">省/自治区/直辖市</label>
+                    <select class="form-control" id="bind2" onchange="self.location.href=options[selectedIndex].value">
+                        <div th:each="province:${province}">
+                        <option th:value="@{'/user/feedback/'+${province.prId}}" th:text="${province.prName}" th:if="${cid1!=province.prId}"></option>
+                        <option th:value="@{'/user/feedback/'+${province.prId}}" th:text="${province.prName}" th:if="${cid1==province.prId}" selected></option>
+                        </div>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bind3">市/县/区</label>
+                    <select class="form-control" id="bind3" name="idCity">
+                        <div th:if="${idea!=null}">
+                        <div th:each="city:${city}">
+                            <option th:text="${city.ciName}" th:value="${city.ciId}" th:if="${idea.idCity!=city.ciId}"></option>
+                            <option th:text="${city.ciName}" th:value="${city.ciId}" th:if="${idea.idCity==city.ciId}" selected></option>
+                        </div>
+                        </div>
+                        <div th:if="${idea==null}">
+                            <div th:each="city:${city}">
+                                <option th:text="${city.ciName}" th:value="${city.ciId}"></option>
+                            </div>
+                        </div>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bind4">空气污染程度</label>
+                    <select class="form-control" id="bind4" name="idAqi">
+                        <div th:if="${idea!=null}">
+                        <div th:each="aqi:${aqi}">
+                           <option th:text="${aqi.aqName}" th:value="${aqi.aqId}" th:if="${idea.idAqi!=aqi.aqId}"></option>
+                            <option th:text="${aqi.aqName}" th:value="${aqi.aqId}" th:if="${idea.idAqi==aqi.aqId}" selected></option>
+                        </div>
+                        </div>
+                        <div th:if="${idea==null}">
+                            <div th:each="aqi:${aqi}">
+                                <option th:text="${aqi.aqName}" th:value="${aqi.aqId}"></option>
+                            </div>
+                        </div>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bind5">备注</label>
+                    <div th:if="${idea!=null}">
+                    <input type="text" name="idRemark" class="form-control" id="bind5" placeholder="请输入备注" th:value="${idea.idRemark}">
+                    </div>
+                    <div th:if="${idea==null}">
+                        <input type="text" name="idRemark" class="form-control" id="bind5" placeholder="请输入备注">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="bind1">上传空气质量图片</label>
+                    <br>
+                    <input type="file" class="form-control-file" id="bind1" aria-describedby="fileHelp" name="file1">
+                    <small id="fileHelp" class="form-text text-muted">---您可以上传您报告地区的空气检测仪图片或者户外肉眼可见的污染图片---</small>
+                </div>
+                <br>
+                <div class="form-group d-flex justify-content-center">
+                   <input class="btn btn-primary" type="submit" value="提交"/>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <br><br>
+    <div th:replace="/users/module/user::footer"></div>
+</div>
+
+</body>
+</html>

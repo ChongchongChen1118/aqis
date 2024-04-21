@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN" th:with="active='new-ins'">
+<head>
+    <meta charset="utf-8">
+    <title>新增AQI网格员</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="robots" content=""/>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="/css/page/page.css" media="all"/>
+    <link rel="stylesheet" href="/css/style.css" media="all"/>
+    <!--[if IE]>
+    <link rel="stylesheet" href="/css/ie.css" media="all"/><![endif]-->
+    <link rel="stylesheet" href="/css/modal.min.css">
+    <script src="/lib/jquery.min.js"></script>
+
+
+</head>
+<body>
+
+<!--顶部导航条-->
+<div th:replace="/admin/common/common-board::dashboard-top"></div>
+<!--左侧导航条-->
+<div th:replace="/admin/common/common-board::dashboard-left"></div>
+
+<section class="content-adjust">
+    <section class="widget " style="height: 900px; min-height:300px;width: 600px">
+        <header>
+            <span class="icon">&#128196;</span>
+            <hgroup>
+                <h1>新增AQI网格员</h1>
+            </hgroup>
+        </header>
+        <div class="content">
+            <form th:action="@{/admin/signinJudgment}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="cid" th:value="${cid}">
+                <div class="field-wrap">
+                    <img id="image" th:src="@{/users/photo/03.png}" width="127px" class="col-center img-thumbnail"
+                         alt="头像" title="修改头像" onclick="document.getElementById('fileInput').click();">
+                    <br><small>点击头像图标上传头像</small>
+                    <br><br>
+                    <input type="file" id="fileInput" style="display:none;" name="file1">
+                    <p class=""><label class="label-font" for="id_pr">所在省份:</label></p>
+
+                    <select class="form-control" id="id_pr" onchange="self.location.href=options[selectedIndex].value">
+                        <div th:each="pc:${province}">
+                            <option class="text-center" th:value="@{'/admin/new-ins/'+${pc.prId}}"
+                                    th:text="${pc.prName}" th:if="${cid!=pc.prId}"></option>
+                            <option class="text-center" th:value="@{'/admin/new-ins/'+${pc.prId}}"
+                                    th:text="${pc.prName}" th:if="${cid==pc.prId}" selected></option>
+                        </div>
+                    </select><br>
+                    <p class=""><label class="label-font" for="id_city">所在城市:</label></p>
+
+                    <select class="form-control " id="id_city" name="insAddress">
+                        <div th:if="${inspectorDTO==null}">
+                            <div th:each="city:${city}">
+                                <option class="text-center" th:text="${city.ciName}" th:value="${city.ciId}"></option>
+                            </div>
+                        </div>
+                        <div th:if="${inspectorDTO!=null}">
+                            <div th:each="city:${city}">
+                                <option class="text-center" th:text="${city.ciName}" th:value="${city.ciId}"
+                                        th:if="${inspectorDTO.insAddress.equals(''+city.ciId)}" selected></option>
+                                <option class="text-center" th:text="${city.ciName}" th:value="${city.ciId}"
+                                        th:if="${!inspectorDTO.insAddress.equals(''+city.ciId)}"></option>
+                            </div>
+                        </div>
+                    </select><br>
+                    <p class=""><label class="label-font" for="account">账号:</label></p>
+                    <input class="form-control" type="text" id="account" name="inAccount" placeholder="Account"
+                           th:value="${inspectorDTO.inAccount}" th:if="${inspectorDTO!=null}" required>
+                    <input class="form-control" type="text" id="account" name="inAccount" placeholder="Account"
+                           th:if="${inspectorDTO==null}" required>
+
+                    <p class=""><label class="label-font" for="account">密码:</label></p>
+                    <input class="form-control" type="password" id="password" name="inPass"
+                           th:value="${inspectorDTO.inPass}"  th:if="${inspectorDTO!=null}" placeholder="PassWord" required>
+                    <input class="form-control" type="password" id="password" name="inPass"
+                           th:if="${inspectorDTO==null}" placeholder="PassWord" required>
+
+                    <p class=""><label class="label-font" for="account">姓名:</label></p>
+                    <input class="form-control" type="text" id="name" name="insName" th:value="${inspectorDTO.insName}"
+                           placeholder="请输入网格员姓名" th:if="${inspectorDTO!=null}" required>
+                    <input class="form-control" type="text" id="name" name="insName"
+                           placeholder="请输入网格员姓名" th:if="${inspectorDTO==null}" required>
+                    <p class=""><label class="label-font" for="account">身份证号:</label></p>
+                    <input class="form-control" type="text" id="idCard" name="insCard"
+                           th:value="${inspectorDTO.insCard}" th:if="${inspectorDTO!=null}" placeholder="请输入网格员身份证号" required>
+                    <input class="form-control" type="text" id="idCard" name="insCard"
+                           th:if="${inspectorDTO==null}" placeholder="请输入网格员身份证号" required>
+                    <p class=""><label class="label-font" for="account">电话:</label></p>
+                    <input class="form-control" type="text" id="phone" name="insPhone"
+                           th:value="${inspectorDTO.insPhone}" th:if="${inspectorDTO!=null}" placeholder="请输入网格员手机号" required>
+                    <input class="form-control" type="text" id="phone" name="insPhone"
+                           th:if="${inspectorDTO==null}" placeholder="请输入网格员手机号" required>
+                    <p class=""><label class="label-font" for="account">邮箱:</label></p>
+                    <input class="form-control" type="text" id="email" name="insEmail"
+                           th:value="${inspectorDTO.insEmail}" placeholder="请输入网格员邮箱" th:if="${inspectorDTO!=null}" required>
+                    <input class="form-control" type="text" id="email" name="insEmail"
+                           placeholder="请输入网格员邮箱" th:if="${inspectorDTO==null}" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="green">提交网格员信息</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</section>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.wysiwyg.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/cycle.js"></script>
+<script src="/js/jquery.checkbox.min.js"></script>
+<!--<script th:src="js/flot.js}"></script>
+<script th:src="js/flot.resize.js}"></script>
+<script th:src="js/flot-graphs.js}"></script>
+<script th:src="js/flot-time.js}"></script>
+<script th:src="js/cycle.js}"></script>-->
+<script src="/js/jquery.tablesorter.min.js"></script>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neu.admin.mapper.AdminIdeaWorkoutMapper">
+	<select id="selectOverById" resultType="java.lang.Long">
+		select count(wo_id) from idea_workout wo
+		inner join idea id on wo.wo_cid=id.id_id
+		inner join district_city ci on id.id_city=ci.ci_id
+		inner join district_province pr on ci.ci_cid=pr.pr_id
+		where pr.pr_id=#{id} and wo.wo_aqi>=3
+	</select>
+	<select id="selectNow1" resultType="java.lang.Long">
+		select count(wo_id) from idea_workout
+		where wo_aqi>=3 and wo_date>#{date}
+	</select>
+	<select id="selectNow2" resultType="java.lang.Long">
+		select count(wo_id) from idea_workout
+		where wo_aqi>=3 and wo_date>#{param1} and #{param2}>wo_date
+	</select>
+
+</mapper>

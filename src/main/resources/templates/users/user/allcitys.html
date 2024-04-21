@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>全部城市</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/users/static/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/users/static/index/css/style.css}" rel="stylesheet">
+    <script th:src="@{/users/static/index/js/jquery.min.js}"></script>
+    <script th:src="@{/users/static/index/js/popper.min.js}"></script>
+    <script th:src="@{/users/static/index/js/bootstrap.min.js}"></script>
+    <script th:src="@{/users/static/index/js/scripts.js}"></script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="/users/module/user::header"></div>
+    <br><br><br><br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <div th:if="${pageType==1}">
+            <h3 class="text-center" th:text="全部城市"></h3>
+            <br>
+            </div>
+            <div th:if="${pageType==2}">
+                <h3 class="text-center" th:text="${pageName}"></h3>
+                <br>
+            </div>
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <a th:href="@{/user/allcity/1}"><button type="button" class="btn btn-primary">查询全部</button></a>
+                <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                    <div class="dropdown-menu pre-scrollable scrollable-content" aria-labelledby="btnGroupDrop1">
+                        <div th:each="province:${province}">
+                            <a class="dropdown-item" th:href="@{'/user/allcity/'+${province.prId}+'/1'}" th:text="${province.prName}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                <tr class="table-info" align="center">
+                    <th scope="row">编号</th>
+                    <th scope="row">省/自治区/直辖市</th>
+                    <th scope="row">市/县/区</th>
+                    <th scope="row">最新SO2值</th>
+                    <th scope="row">最新CO2值</th>
+                    <th scope="row">最新PM2.5值</th>
+                    <th scope="row">最新检测空气质量</th>
+                    <th scope="row">最新空气质量颜色</th>
+                    <th scope="row">最新检测提交时间</th>
+                    <th scope="row">操作</th>
+                </tr>
+                </thead>
+                <tbody class="table-hover">
+                <div th:each="all,aStat:${page.list}">
+                    <tr class="table-light" align="center">
+                        <th th:text="${aStat.index+1}" class="align-middle"></th>
+                        <th th:text="${all.prName}" class="align-middle"></th>
+                        <th th:text="${all.ciName}" class="align-middle"></th>
+                        <td th:text="${all.infSo}" class="align-middle"></td>
+                        <td th:text="${all.infCo}" class="align-middle"></td>
+                        <td th:text="${all.infPm}" class="align-middle"></td>
+                        <td th:text="${all.aqName}" class="align-middle"></td>
+                        <td class="align-middle"><div th:style="'width:70px;height:20px;background-color:'+${all.aqColor}"></div></td>
+                        <td th:text="${all.infDate}" class="align-middle"></td>
+                        <td class="align-middle"><a th:href="@{'/user/urban/'+${all.infCid}+'/1'}"><button type="button" class="btn btn-outline-primary">查看此城市</button></a></td>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+    </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div th:if="${pageType==1}">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:if="${page.hasPreviousPage}">
+                    <a class="page-link" th:href="@{'/user/allcity/1'}">首页</a>
+                </li>
+                <li class="page-item disabled" th:if="${!page.hasPreviousPage}">
+                    <a class="page-link">首页</a>
+                </li>
+                <li class="page-item" th:if="${page.hasPreviousPage}">
+                    <a class="page-link" th:href="@{'/user/allcity/'+${page.prePage}}">&laquo;</a>
+                </li>
+                <li class="page-item disabled" th:if="${!page.hasPreviousPage}">
+                    <a class="page-link">&laquo;</a>
+                </li>
+                <p th:each="num : ${page.navigatepageNums}">
+                    <li class="page-item active" th:if="${page.pageNum == num}">
+                        <a class="page-link" th:href="@{'/user/allcity/'+${num}}" th:text="${num}"></a>
+                    </li>
+                        <li class="page-item" th:if="${page.pageNum != num}">
+                            <a class="page-link" th:href="@{'/user/allcity/'+${num}}" th:text="${num}"></a>
+                        </li>
+                </p>
+                <li class="page-item" th:if="${page.hasNextPage}">
+                    <a class="page-link" th:href="@{'/user/allcity/'+${page.nextPage}}">&raquo;</a>
+                </li>
+                <li class="page-item disabled" th:if="${!page.hasNextPage}">
+                    <a class="page-link">&raquo;</a>
+                </li>
+                <li class="page-item" th:if="${page.hasNextPage}">
+                    <a class="page-link" th:href="@{'/user/allcity/'+${page.pages}}">末页</a>
+                </li>
+                <li  class="page-item disabled" th:if="${!page.hasNextPage}">
+                    <a class="page-link">末页</a>
+                </li>
+            </ul>
+            </div>
+
+
+            <div th:if="${pageType==2}">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:if="${page.hasPreviousPage}">
+                        <a class="page-link" th:href="@{'/user/allcity/'+${pageid}+'/1'}">首页</a>
+                    </li>
+                    <li class="page-item disabled" th:if="${!page.hasPreviousPage}">
+                        <a class="page-link">首页</a>
+                    </li>
+                    <li class="page-item" th:if="${page.hasPreviousPage}">
+                        <a class="page-link" th:href="@{'/user/allcity/'+${pageid}+'/'+${page.prePage}}">&laquo;</a>
+                    </li>
+                    <li class="page-item disabled" th:if="${!page.hasPreviousPage}">
+                        <a class="page-link">&laquo;</a>
+                    </li>
+                    <p th:each="num : ${page.navigatepageNums}">
+                        <li class="page-item active" th:if="${page.pageNum == num}">
+                            <a class="page-link" th:href="@{'/user/allcity/'+${pageid}+'/'+${num}}" th:text="${num}"></a>
+                        </li>
+                        <li class="page-item" th:if="${page.pageNum != num}">
+                            <a class="page-link" th:href="@{'/user/allcity/'+${pageid}+'/'+${num}}" th:text="${num}"></a>
+                        </li>
+                    </p>
+                    <li class="page-item" th:if="${page.hasNextPage}">
+                        <a class="page-link" th:href="@{'/user/allcity/'+${pageid}+'/'+${page.nextPage}}">&raquo;</a>
+                    </li>
+                    <li class="page-item disabled" th:if="${!page.hasNextPage}">
+                        <a class="page-link">&raquo;</a>
+                    </li>
+                    <li class="page-item" th:if="${page.hasNextPage}">
+                        <a class="page-link" th:href="@{'/user/allcity/'+${pageid}+'/'+${page.pages}}">末页</a>
+                    </li>
+                    <li  class="page-item disabled" th:if="${!page.hasNextPage}">
+                        <a class="page-link">末页</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div th:replace="/users/module/user::footer"></div>
+</div>
+
+</body>
+</html>

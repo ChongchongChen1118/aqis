@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.grid.mapper.GridIdentInspectorMapper">
+	<select id="personalById"  resultType="com.neu.grid.dto.IdentInspectorDTO">
+		select ins.*,ci.*,pr.*
+		from ident_inspector ins
+		    inner join district_city ci on ins.ins_address=ci.ci_id
+		    inner join district_province pr on ci.ci_cid=pr.pr_id
+		where ins.ins_cid=#{id}
+	</select>
+
+</mapper>

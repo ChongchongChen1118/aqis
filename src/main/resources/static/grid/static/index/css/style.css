@@ -1,0 +1,26 @@
+.area-title {
+    border-left: 5px solid #0c63e4;
+    padding-left: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+.mall-footer {
+    background-color: #f0f0f0;
+    text-align: center;
+    color: #888888;
+    padding: 20px;
+}
+.col-center {
+    float: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.padding{
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>待检测反馈</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/grid/static/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/grid/static/index/css/style.css}" rel="stylesheet">
+    <script th:src="@{/grid/static/index/js/jquery.min.js}"></script>
+    <script th:src="@{/grid/static/index/js/popper.min.js}"></script>
+    <script th:src="@{/grid/static/index/js/bootstrap.min.js}"></script>
+    <script th:src="@{/grid/static/index/js/scripts.js}"></script>
+
+  </head>
+  <body>
+
+  <div class="container-fluid">
+    <div th:replace="/grid/module/grid::header"></div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-dismissible alert-success" th:if="${judgment==1}">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>填报成功！</strong> <br> 请继续您的操作
+        </div>
+        <h4 class="text-center">
+          待检测反馈
+        </h4>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table">
+          <thead>
+          <tr class="table-dark" align="center">
+            <th scope="row">编号</th>
+            <th scope="row">省/自治区/直辖市</th>
+            <th scope="row">市/县/区</th>
+            <th scope="row">反馈空气质量</th>
+            <th scope="row">反馈空气质量颜色</th>
+            <th scope="row">反馈创建时间</th>
+            <th scope="row">状态</th>
+            <th scope="row">操作</th>
+          </tr>
+          </thead>
+          <tbody class="table-hover">
+          <div th:each="all,aStat:${page.list}">
+            <tr class="table-light" align="center">
+              <td th:text="${aStat.index+1}" class="align-middle"></td>
+              <td th:text="${all.prName}" class="align-middle"></td>
+              <td th:text="${all.ciName}" class="align-middle"></td>
+              <td th:text="${all.aqName}" class="align-middle"></td>
+              <td class="align-middle"><div th:style="'width:70px;height:20px;background-color:'+${all.aqColor}"></div></td>
+              <td th:text="${all.idDate}" class="align-middle"></td>
+              <td th:text="待检测" class="align-middle" th:if="${all.idOut==0}"></td>
+              <td th:text="已检测" class="align-middle" th:if="${all.idOut!=0}"></td>
+              <td>
+                <a id="modal-471745" th:href="'#modal-container-4717'+${aStat.index+1}" data-toggle="modal"><button type="button" class="btn btn-outline-primary" data-dismiss="modal">查看反馈详情</button></a>
+               &nbsp;
+                <a th:if="${all.idOut==0}" th:href="@{'/grid/submit/'+${all.idId}}"><button type="button" class="btn btn-outline-primary" data-dismiss="modal">填报检测记录</button></a>
+                <button type="button" class="btn btn-secondary disabled" data-dismiss="modal" th:if="${all.idOut!=0}">已经填报完毕</button>
+              </td>
+              <div class="modal fade" th:id="'modal-container-4717'+${aStat.index+1}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="myModalLabel">
+                        反馈详情
+                      </h5>
+                      <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <div><img th:src="@{${all.idPhoto}}" width="100%" class="col-center"></div>
+                        <br>
+                        <div th:text="'省/自治区/直辖市：'+${all.prName}"></div>
+                        <div th:text="'市/县/区：'+${all.ciName}"></div>
+                        <div th:text="'反馈空气质量：'+${all.aqName}"></div>
+                        <div th:text="'反馈备注：'+${all.idRemark}"></div>
+                        <div th:text="'创建时间：'+${all.idDate}"></div>
+                        <div th:text="'状态：待检测'" th:if="${all.idOut==0}"></div>
+                        <div th:text="'状态：已检测'" th:if="${all.idOut!=0}"></div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-danger" data-dismiss="modal">
+                        关闭
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </tr>
+          </div>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" th:if="${page.hasPreviousPage}">
+            <a class="page-link" th:href="@{'/grid/tobesolved/1'}">首页</a>
+          </li>
+          <li class="page-item disabled" th:if="${!page.hasPreviousPage}">
+            <a class="page-link">首页</a>
+          </li>
+          <li class="page-item" th:if="${page.hasPreviousPage}">
+            <a class="page-link" th:href="@{'/grid/tobesolved/'+${page.prePage}}">&laquo;</a>
+          </li>
+          <li class="page-item disabled" th:if="${!page.hasPreviousPage}">
+            <a class="page-link">&laquo;</a>
+          </li>
+          <p th:each="num : ${page.navigatepageNums}">
+            <li class="page-item active" th:if="${page.pageNum == num}">
+              <a class="page-link" th:href="@{'/grid/tobesolved/'+${num}}" th:text="${num}"></a>
+            </li>
+            <li class="page-item" th:if="${page.pageNum != num}">
+              <a class="page-link" th:href="@{'/grid/tobesolved/'+${num}}" th:text="${num}"></a>
+            </li>
+          </p>
+          <li class="page-item" th:if="${page.hasNextPage}">
+            <a class="page-link" th:href="@{'/grid/tobesolved/'+${page.nextPage}}">&raquo;</a>
+          </li>
+          <li class="page-item disabled" th:if="${!page.hasNextPage}">
+            <a class="page-link">&raquo;</a>
+          </li>
+          <li class="page-item" th:if="${page.hasNextPage}">
+            <a class="page-link" th:href="@{'/grid/tobesolved/'+${page.pages}}">末页</a>
+          </li>
+          <li  class="page-item disabled" th:if="${!page.hasNextPage}">
+            <a class="page-link">末页</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <br>
+    <div th:replace="/grid/module/grid::footer"></div>
+  </div>
+
+  </body>
+</html>

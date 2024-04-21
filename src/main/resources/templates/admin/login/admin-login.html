@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<title>管理员登录</title>
+	<meta name="description" content="" />
+	<meta name="robots" content="" />
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" th:href="@{/css/style.css}" media="all" />
+	<!--[if IE]>
+    <link rel="stylesheet" th:href="@{/admin/css/ie.css}" media="all"/><![endif]-->
+	<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/admin-login.js}"></script>
+</head>
+<body class="login">
+	<section>
+		<h1><strong>AQIS</strong> 管理员登录</h1>
+		<form method="post" th:action="@{/verity/handler/admin-login}">
+			<input type="text" id="account" name="adAccount" placeholder="请输入管理员账号" required/>
+			<input type="password" id="password" name="adPass" placeholder="请输入管理员密码" required/>
+			<div th:text="${msg}" class="admin-login-error"/>
+			<button class="blue">登录</button>
+			<p><a th:href="@{/user}">返回主页</a></p>
+		</form>
+	</section>
+</body>
+</html>

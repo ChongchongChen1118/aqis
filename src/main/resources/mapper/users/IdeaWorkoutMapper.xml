@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neu.users.mapper.IdeaWorkoutMapper">
+	<select id="resolved"  resultType="com.neu.users.dto.IdeaWorkoutDTO">
+		select i.*,w.*,d.ci_name,di.pr_name,aq.aq_name,aq.aq_color,ins.ins_name from idea i inner join district_city d on i.id_city=d.ci_id inner join district_province di on d.ci_cid=di.pr_id inner join idea_workout w on i.id_id=w.wo_cid inner join aqi aq on w.wo_aqi=aq.aq_id inner join ident_inspector ins on ins.ins_cid=w.wo_ins_cid where i.id_out=1 and i.id_user=#{id} order by w.wo_date desc
+	</select>
+	<select id="selectWorkoutByCity"  resultType="com.neu.users.dto.IdeaWorkoutDTO">
+		select i.*,w.*,d.ci_name,di.pr_name,aq.aq_name,aq.aq_color,ins.ins_name
+		from idea i inner join district_city d on i.id_city=d.ci_id
+		    inner join district_province di on d.ci_cid=di.pr_id
+		    inner join idea_workout w on i.id_id=w.wo_cid
+		    inner join aqi aq on w.wo_aqi=aq.aq_id
+		    inner join ident_inspector ins on ins.ins_cid=w.wo_ins_cid
+		where i.id_city=#{id}
+		order by i.id_id desc
+	</select>
+	<select id="selectAllWorkout" resultType="com.neu.users.dto.IdeaWorkoutDTO">
+		select i.*,w.*,d.ci_name,di.pr_name,aq.aq_name,aq.aq_color,ins.ins_name
+		from idea i
+		    inner join district_city d on i.id_city=d.ci_id
+		    inner join district_province di on d.ci_cid=di.pr_id
+		    inner join idea_workout w on i.id_id=w.wo_cid
+		    inner join aqi aq on w.wo_aqi=aq.aq_id
+		    inner join ident_inspector ins on ins.ins_cid=w.wo_ins_cid
+		where i.id_out=1
+		order by w.wo_date desc
+	</select>
+	<select id="selectWorkoutById" resultType="com.neu.users.dto.IdeaWorkoutDTO">
+		select i.*,w.*,d.ci_name,di.pr_name,aq.aq_name,aq.aq_color,ins.ins_name
+		from idea i
+				 inner join district_city d on i.id_city=d.ci_id
+				 inner join district_province di on d.ci_cid=di.pr_id
+				 inner join idea_workout w on i.id_id=w.wo_cid
+				 inner join aqi aq on w.wo_aqi=aq.aq_id
+				 inner join ident_inspector ins on ins.ins_cid=w.wo_ins_cid
+		where i.id_out=1 and di.pr_id=#{id}
+		order by w.wo_date desc
+	</select>
+	<select id="selectWorkoutLimit" resultType="com.neu.users.dto.IdeaWorkoutDTO">
+		select i.*,w.*,d.ci_name,di.pr_name,aq.aq_name,aq.aq_color,ins.ins_name
+		from idea i
+				 inner join district_city d on i.id_city=d.ci_id
+				 inner join district_province di on d.ci_cid=di.pr_id
+				 inner join idea_workout w on i.id_id=w.wo_cid
+				 inner join aqi aq on w.wo_aqi=aq.aq_id
+				 inner join ident_inspector ins on ins.ins_cid=w.wo_ins_cid
+		where i.id_out=1
+		order by w.wo_date desc limit 0,10
+	</select>
+
+	<select id="select1" resultType="int">
+		select count(wo_id) from idea_workout
+		inner join idea on wo_cid=id_id
+		where wo_aqi=1 and id_city=#{id}
+	</select>
+	<select id="select2" resultType="int">
+		select count(wo_id) from idea_workout
+		inner join idea on wo_cid=id_id
+		where wo_aqi=2 and id_city=#{id}
+	</select>
+	<select id="select3" resultType="int">
+		select count(wo_id) from idea_workout
+		inner join idea on wo_cid=id_id
+		where wo_aqi=3 and id_city=#{id}
+	</select>
+	<select id="select4" resultType="int">
+		select count(wo_id) from idea_workout
+		inner join idea on wo_cid=id_id
+		where wo_aqi=4 and id_city=#{id}
+	</select>
+	<select id="select5" resultType="int">
+		select count(wo_id) from idea_workout
+		inner join idea on wo_cid=id_id
+		where wo_aqi=5 and id_city=#{id}
+	</select>
+	<select id="select6" resultType="int">
+		select count(wo_id) from idea_workout
+									 inner join idea on wo_cid=id_id
+		where wo_aqi=6 and id_city=#{id}
+	</select>
+</mapper>

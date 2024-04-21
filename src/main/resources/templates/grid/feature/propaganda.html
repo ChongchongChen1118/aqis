@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>关于我们</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+      <link th:href="@{/grid/static/index/css/bootstrap.min.css}" rel="stylesheet">
+      <link th:href="@{/grid/static/index/css/style.css}" rel="stylesheet">
+      <script th:src="@{/grid/static/index/js/jquery.min.js}"></script>
+      <script th:src="@{/grid/static/index/js/popper.min.js}"></script>
+      <script th:src="@{/grid/static/index/js/bootstrap.min.js}"></script>
+      <script th:src="@{/grid/static/index/js/scripts.js}"></script>
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+        <div th:replace="/grid/module/grid::header"></div>
+        <br>
+	<div class="row">
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4">
+            <img alt="Bootstrap Image Preview" th:src="@{/grid/photo/about.png}" class="rounded col-center" width="88%">
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
+        <br>
+        <div th:replace="/grid/module/grid::footer"></div>
+</div>
+
+  </body>
+</html>

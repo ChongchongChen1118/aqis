@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN" th:with="active='noGave-information'">
+<head>
+	<meta charset="utf-8">
+	<title>待指派异常</title>
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="robots" content="" />
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="/css/page/page.css" media="all"/>
+	<link rel="stylesheet" href="/css/style.css" media="all" />
+	<!--[if IE]>
+	<link rel="stylesheet" href="/css/ie.css" media="all"/><![endif]-->
+	<link rel="stylesheet" href="/css/modal.min.css">
+	<link rel="stylesheet" href="/css/btn.css">
+	<script src="/lib/jquery.min.js"></script>
+	<script src="/lib/bootstrap.min.js"></script>
+</head>
+<body>
+<!--顶部导航条-->
+<div th:replace="/admin/common/common-board::dashboard-top"></div>
+<!--左侧导航条-->
+<div th:replace="/admin/common/common-board::dashboard-left"></div>
+
+<section class="content-top">
+	<section class="widget">
+		<header>
+			<span class="icon">&#128196;</span>
+			<hgroup>
+				<h1>待指派异常</h1>
+				<h2 th:text="'数量:'+${ideaDTOList.total}"></h2>
+			</hgroup>
+		</header>
+		<div class="content">
+			<table id="myTable" >
+				<thead>
+					<tr>
+						<th>异常图片</th>
+						<th>地区</th>
+						<th>空气质量指数(AQI)</th>
+						<th>AQI颜色</th>
+						<th>备注</th>
+						<th>公众监督员</th>
+						<th>提交时间</th>
+						<th>AQI检测网格员</th>
+						<th>异常处理状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+					<tbody>
+						<tr th:each="idea:${ideaDTOList.list}">
+							<!--<td><input type="checkbox" /> Home</td>-->
+							<td><img th:src="@{${idea.idPhoto}}"  alt="" height="40" width="40"/></td>
+							<td th:text="${idea.districtProvince.prName}+' '+${idea.districtCity.ciName}"></td>
+							<td th:text="${idea.aqi.aqName}"></td>
+							<td><div th:style="'width:80px;height:20px;background-color:'+${idea.aqi.aqColor}"></div></td>
+							<td th:text="${idea.idRemark}"></td>
+							<td th:text="${idea.identUser.useName}"></td>
+							<td th:text="${#dates.format(idea.idDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+							<td th:text="${idea.idInspector}==0?'待分配':${idea.identInspector.insName}"></td>
+							<!--<td th:text="${idea.identInspector.insName}" th:if="${idea.idInspector}!=0"></td>-->
+							<!--不同css颜色显示解决文字-->
+							<td th:text="${idea.idOut}==0 ?'待处理':'已处理'"></td>
+							<td><!--th:onclick="location='/edge/logout'"-->
+								<button th:class="blue"  th:if="${idea.idInspector}==0" data-toggle="modal" th:data-target="'#myModal'+${idea.idId}"
+										th:data-id="${idea.idId}" th:data-city="${idea.idCity}" onclick= "getIdeaInfo(this.getAttribute('data-id'),this.getAttribute('data-city'))">指派网格员</button>
+								<button th:class="green" th:if="${idea.idInspector}!=0 and ${idea.idOut}==0 ">已指派</button>
+							</td>
+							<div class="modal fade" th:id="'myModal'+${idea.idId}" tabindex="-1" role="dialog"
+								 aria-labelledby="myModalLabel">
+
+								<div class="modal-dialog">
+									<form id="update_form" th:action="@{/admin/updateInspector}" method="post">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true">
+													&times;
+												</button>
+												<h1 class="modal-title" id="myModalLabel">
+													指派网格员
+												</h1>
+											</div>
+											<div class="modal-body">
+												<input type="hidden" id="id_id" name="idId" th:value="${idea.idId}">
+												<input type="hidden" id="id_city" name="cityId" th:value="${idea.idCity}">
+												<p class="text-center"><label class="label-font">选择AQI检测网格员</label></p>
+												<select class="form-control " name="idUser">
+													<option class="text-center" th:each="ins:${inspectorList}" th:if="${ins.insAddress}==${idea.idCity}"  th:value="${ins.insCid}"
+															th:text="${ins.insName}"></option>
+												</select>
+
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal"> 关闭</button>
+												<button type="submit" class="btn green" > 确认指派</button>
+											</div>
+										</div><!-- /.modal-content -->
+									</form>
+								</div><!-- /.modal -->
+
+							</div>
+						</tr>
+
+					</tbody>
+				</table>
+			<p>
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="pagination justify-content-center">
+						<li class="page-item" th:if="${ideaDTOList.hasPreviousPage}">
+							<a class="page-link" th:href="@{'/admin/IdeaNoGaveIns/page/1'}">首页</a>
+						</li>
+						<li class="page-item disabled" th:if="${!ideaDTOList.hasPreviousPage}">
+							<a class="page-link">首页</a>
+						</li>
+						<li class="page-item" th:if="${ideaDTOList.hasPreviousPage}">
+							<a class="page-link" th:href="@{'/admin/IdeaNoGaveIns/page/'+${ideaDTOList.prePage}}">&laquo;</a>
+						</li>
+						<li class="page-item disabled" th:if="${!ideaDTOList.hasPreviousPage}">
+							<a class="page-link">&laquo;</a>
+						</li>
+						<p th:each="num : ${ideaDTOList.navigatepageNums}">
+						<li class="page-item " th:if="${ideaDTOList.pageNum == num}">
+							<a class="page-link active" th:href="@{'/admin/IdeaNoGaveIns/page/'+${num}}" th:text="${num}"></a>
+						</li>
+						<li class="page-item " th:if="${ideaDTOList.pageNum != num}">
+							<a class="page-link" th:href="@{'/admin/IdeaNoGaveIns/page/'+${num}}" th:text="${num}"></a>
+						</li>
+						</p>
+						<li class="page-item" th:if="${ideaDTOList.hasNextPage}">
+							<a class="page-link" th:href="@{'/admin/IdeaNoGaveIns/page/'+${ideaDTOList.nextPage}}">&raquo;</a>
+						</li>
+						<li class="page-item disabled" th:if="${!ideaDTOList.hasNextPage}">
+							<a class="page-link">&raquo;</a>
+						</li>
+						<li class="page-item" th:if="${ideaDTOList.hasNextPage}">
+							<a class="page-link" th:href="@{'/admin/IdeaNoGaveIns/page/'+${ideaDTOList.pages}}">末页</a>
+						</li>
+						<li class="page-item disabled" th:if="${!ideaDTOList.hasNextPage}">
+							<a class="page-link">末页</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			</p>
+		</div>
+	</section>
+	<div th:replace="/admin/common/common-board::dashboard-footer"></div>
+</section>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.wysiwyg.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/cycle.js"></script>
+<script src="/js/jquery.checkbox.min.js"></script>
+<script src="/js/flot.js"></script>
+<script src="/js/flot.resize.js"></script>
+<script src="/js/flot-graphs.js"></script>
+<script src="/js/flot-time.js"></script>
+<script src="/js/cycle.js"></script>
+<script src="/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript">
+
+	// 通过id获取信息
+	function getIdeaInfo(id,city) {
+		$("#id_id").val(id);
+		$("#id_city").val(city);
+	}
+
+
+
+	// 修改
+	function giveIns() {
+		$.ajax({
+			url:"/admin/updateInspector",
+			type: "POST",//方法类型
+			cache : false,
+			processData: false,
+			contentType: false,
+			dataType:"json",
+			data: new FormData($('#update_form')[0]),
+			success: function(data){
+				// alert(data);
+				if(data.result=="success"){
+					alert(data.msg);
+					window.location.reload();
+				}else{
+					alert(data.msg);
+				}
+			},error:function(xhr,status,error){
+				alert("请求失败!"+status);
+			}
+		});
+	}
+
+</script>
+</body>
+</html>

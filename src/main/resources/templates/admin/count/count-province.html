@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN" th:with="active='admin-index'">
+<head>
+    <meta charset="utf-8">
+    <title>AQIS 管理员</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="robots" content=""/>
+    <link rel="stylesheet" href="/css/btndropdown.css">
+    <link rel="stylesheet" href="/css/style.css" media="all"/>
+    <link rel="stylesheet" href="/css/page/page.css" media="all"/>
+    <link rel="stylesheet" href="/css/modal.min.css">
+    <link rel="stylesheet" href="/css/btn.css">
+    <script th:src="@{/users/static/index/js/jquery.min.js}"></script>
+    <script th:src="@{/users/static/index/js/popper.min.js}"></script>
+    <script th:src="@{/users/static/index/js/bootstrap.min.js}"></script>
+    <script th:src="@{/users/static/index/js/scripts.js}"></script>
+
+
+
+</head>
+<body>
+<!--顶部导航条-->
+<div th:replace="/admin/common/common-board::dashboard-top"></div>
+<!--左侧导航条-->
+<div th:replace="/admin/common/common-board::dashboard-left"></div>
+
+<!--<section class="alert" th:if="${boardData.waitForGiveInsNum!=0}">
+    <div class="green">
+        <a th:href="@{/admin/IdeaNoGaveIns/page/1}" >
+            <p th:text="'Hi, '+ ${session.USER_INFO.getAdAccount()}+' !  您有'+${boardData.waitForGiveInsNum}+' 条异常信息待处理 !'"></p>
+        </a>
+        <span class="close">&#10006;</span>
+    </div>
+</section>-->
+<section class="">
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <a th:href="@{/admin/aqiover/1}"><button type="button" class="btn btn-primary">查询首个省</button></a>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu pre-scrollable" aria-labelledby="btnGroupDrop1">
+                <div th:each="province:${list}">
+                    <a class="dropdown-item" th:href="@{'/admin/aqiover/'+${province.prId}}" th:text="${province.prName}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="widget-container">
+        <section class="widget">
+            <header>
+                <span class="icon">&#128318;</span>
+                <hgroup>
+                    <h1>不同省份的AQI浓度等级超标数量</h1>
+                    <h2>Facts &amp; data</h2>
+                </hgroup>
+            </header>
+            <div class="content">
+                <section class="stats-wrapper">
+                    <div class="stats-count">
+                        <p><span th:text="${count}"></span></p>
+                        <p th:text="${name}+'省的AQI浓度等级超标数量'"></p>
+                    </div>
+
+                </section>
+            </div>
+        </section>
+
+    </div>
+    <div class="widget-container">
+        <div th:replace="/admin/common/common-board::dashboard-footer"></div>
+
+    </div>
+</section>
+<script src="/js/admin-common.js" type="text/javascript"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.wysiwyg.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/cycle.js"></script>
+<script src="/js/jquery.checkbox.min.js"></script>
+<script src="/js/flot.js"></script>
+<script src="/js/flot.resize.js"></script>
+<script src="/js/flot-graphs.js"></script>
+<script src="/js/flot-time.js"></script>
+<script src="/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript">
+    // Feature slider for graphs
+    $('.cycle').cycle({
+        fx: "scrollHorz",
+        timeout: 0,
+        slideResize: 0,
+        prev: '.left-btn',
+        next: '.right-btn'
+    });
+</script>
+</body>
+</html>

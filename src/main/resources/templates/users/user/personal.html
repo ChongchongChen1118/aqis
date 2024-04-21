@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>个人信息</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/users/static/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/users/static/index/css/style.css}" rel="stylesheet">
+    <script th:src="@{/users/static/index/js/jquery.min.js}"></script>
+    <script th:src="@{/users/static/index/js/popper.min.js}"></script>
+    <script th:src="@{/users/static/index/js/bootstrap.min.js}"></script>
+    <script th:src="@{/users/static/index/js/scripts.js}"></script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="/users/module/user::header"></div>
+    <br><br><br><br><br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">
+                个人信息
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-dismissible alert-success" th:if="${aaa==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>保存成功！</strong><br> 您的个人信息修改成功
+            </div>
+            <br>
+            <form th:action="@{/user/updateIdent}" method="post" enctype="multipart/form-data">
+                <img id="image" th:src="@{${personal.usePhoto}}" width="127px" class="col-center img-thumbnail" alt="头像" title="修改头像" onclick="document.getElementById('fileInput').click();">
+                <input type="file" id="fileInput" style="display:none;" name="file1">
+                <br>
+                <div class="form-group">
+                    <label for="records1">姓名</label>
+                    <input type="text" name="useName" th:value="${personal.useName}" class="form-control"
+                           id="records1" placeholder="请输入您的姓名">
+                </div>
+                <div class="form-group">
+                    <label for="records2">性别</label>
+                    <select class="form-control" id="records2" name="useSex">
+                        <div th:if="${personal.useSex=='男'}">
+                            <option selected>男</option>
+                        </div>
+                        <div th:if="${personal.useSex!='男'}">
+                            <option>男</option>
+                        </div>
+                        <div th:if="${personal.useSex=='女'}">
+                            <option selected>女</option>
+                        </div>
+                        <div th:if="${personal.useSex!='女'}">
+                            <option>女</option>
+                        </div>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="records3">年龄</label>
+                    <input type="text" name="useAge" th:value="${personal.useAge}" class="form-control"
+                           id="records3" placeholder="请输入您的年龄">
+                </div>
+                <div class="form-group">
+                    <label for="records5">联系电话</label>
+                    <input type="text" name="usePhone" th:value="${personal.usePhone}" class="form-control"
+                           id="records5" placeholder="请输入您的联系电话">
+                </div>
+                <div class="form-group">
+                    <label for="records7">电子邮件</label>
+                    <input type="email" name="useEmail" th:value="${personal.useEmail}" class="form-control"
+                           id="records7" placeholder="请输入您的电子邮件">
+                </div>
+                <div class="form-group">
+                    <label for="records6">地址</label>
+                    <input type="text" name="useAddress" th:value="${personal.useAddress}" class="form-control"
+                           id="records6" placeholder="请输入您的地址">
+                </div>
+                <div class="form-group">
+                    <label for="records4">个人简介</label>
+                    <input type="text" name="useIntro" th:value="${personal.useIntro}" class="form-control"
+                           id="records4" placeholder="请输入您的个人简介">
+                </div>
+                <div class="form-group">
+                    <label>贡献数量</label>
+                    <b><div th:text="${personal.useContribution}"></div></b>
+                </div>
+                <br>
+                <div class="form-group d-flex justify-content-center">
+                    <input class="btn btn-primary" type="submit" value="修改"/>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>
+<br>
+<div th:replace="/users/module/user::footer"></div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neu.users.mapper.CityInformationMapper">
+	<select id="selectAll"  resultType="com.neu.users.dto.CityInformationDTO">
+	select inf.*,ci.*,pr.*,aq.* from city_information inf inner join district_city ci on inf.inf_cid=ci.ci_id inner join district_province pr on ci.ci_cid=pr.pr_id inner join aqi aq on inf.inf_aqi=aq.aq_id
+	</select>
+	<select id="selectById"  resultType="com.neu.users.dto.CityInformationDTO">
+		select inf.*,ci.*,pr.*,aq.* from city_information inf inner join district_city ci on inf.inf_cid=ci.ci_id inner join district_province pr on ci.ci_cid=pr.pr_id inner join aqi aq on inf.inf_aqi=aq.aq_id where pr.pr_id=#{id}
+	</select>
+
+</mapper>

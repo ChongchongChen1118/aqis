@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neu.grid.mapper.GridIdeaMapper">
+	<select id="selectGridDTO"  resultType="com.neu.grid.dto.IdeaDTO">
+		select i.*,d.ci_name,di.pr_name,aq.aq_name,aq.aq_color
+		from idea i
+		    inner join district_city d on i.id_city=d.ci_id
+		    inner join district_province di on d.ci_cid=di.pr_id
+		    inner join aqi aq on i.id_aqi=aq.aq_id
+		where i.id_inspector=#{id}
+		order by i.id_out asc,i.id_id desc
+	</select>
+	<insert id="insertLanya">
+		insert into lanya values (#{param1},null,#{param2})
+	</insert>
+
+
+</mapper>

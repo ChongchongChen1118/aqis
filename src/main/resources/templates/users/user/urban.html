@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title th:text="${page.list.get(0).prName}+${page.list.get(0).ciName}"></title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/users/static/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/users/static/index/css/style.css}" rel="stylesheet">
+    <script th:src="@{/users/static/index/js/jquery.min.js}"></script>
+    <script th:src="@{/users/static/index/js/popper.min.js}"></script>
+    <script th:src="@{/users/static/index/js/bootstrap.min.js}"></script>
+    <script th:src="@{/users/static/index/js/scripts.js}"></script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="/users/module/user::header"></div>
+    <br><br><br><br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center" th:text="${page.list.get(0).prName}+' '+${page.list.get(0).ciName}"></h2>
+            <br>
+            <b><div th:text="'优：'+${select1}+' 次'" style="margin-left: 50px"></div></b>
+            <b><div th:text="'良：'+${select2}+' 次'" style="margin-left: 50px"></div></b>
+            <b><div th:text="'轻度污染：'+${select3}+' 次'" style="margin-left: 50px"></div></b>
+            <b><div th:text="'中度污染：'+${select4}+' 次'" style="margin-left: 50px"></div></b>
+            <b><div th:text="'重度污染：'+${select5}+' 次'" style="margin-left: 50px"></div></b>
+            <b><div th:text="'严重污染：'+${select6}+' 次'" style="margin-left: 50px"></div></b>
+
+            <h3 class="text-center" th:text="'ERNIE-Bot 大语言模型智能给予建议'"></h3>
+            <br>
+            <b><div style="margin:auto;width: 70%" th:text="${gpt}"></div></b>
+            <br>
+            <table class="table">
+                <thead>
+                <tr class="table-active" align="center">
+                    <th scope="row">编号</th>
+                    <th scope="row">省/自治区/直辖市</th>
+                    <th scope="row">市/县/区</th>
+                    <th scope="row">检测空气质量</th>
+                    <th scope="row">空气质量颜色</th>
+                    <th scope="row">检测网格员</th>
+                    <th scope="row">检测提交时间</th>
+                    <th scope="row">状态</th>
+                    <th scope="row">操作</th>
+                </tr>
+                </thead>
+                <tbody class="table-hover">
+                <div th:each="all,aStat:${page.list}">
+                    <tr class="table-light" align="center">
+                        <td th:text="${aStat.index+1}" class="align-middle"></td>
+                        <td th:text="${all.prName}" class="align-middle"></td>
+                        <td th:text="${all.ciName}" class="align-middle"></td>
+                        <td th:text="${all.aqName}" class="align-middle"></td>
+                        <td class="align-middle"><div th:style="'width:70px;height:20px;background-color:'+${all.aqColor}"></div></td>
+                        <td th:text="${all.insName}" class="align-middle"></td>
+                        <td th:text="${all.woDate}" class="align-middle"></td>
+                        <td th:text="待解决" class="align-middle" th:if="${all.idOut==0}"></td>
+                        <td th:text="已解决" class="align-middle" th:if="${all.idOut!=0}"></td>
+                        <td>
+                            <a id="modal-471745" th:href="'#modal-container-4717'+${aStat.index+1}" data-toggle="modal"><button type="button" class="btn btn-outline-primary" data-dismiss="modal">检测详情</button></a>
+                        </td>
+                        <div class="modal fade" th:id="'modal-container-4717'+${aStat.index+1}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="myModalLabel">
+                                            检测详情
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <div><img th:src="@{${all.woPhoto}}" width="100%" class="col-center"></div>
+                                            <br>
+                                            <div th:text="'省/自治区/直辖市：'+${all.prName}"></div>
+                                            <div th:text="'市/县/区：'+${all.ciName}"></div>
+                                            <div th:text="'监测空气质量：'+${all.aqName}"></div>
+                                            <div th:text="'检测SO2值：'+${all.woSo}+' ug/m3'"></div>
+                                            <div th:text="'检测CO值：'+${all.woCo}+' ug/m3'"></div>
+                                            <div th:text="'检测PM2.5值：'+${all.woPm}+' ug/m3'"></div>
+                                            <div th:text="'检测员：'+${all.insName}"></div>
+                                            <div th:text="'检测员编号：'+${all.woInsCid}"></div>
+                                            <div th:text="'监测时间：'+${all.woDate}"></div>
+                                            <div th:text="'状态：待解决'" th:if="${all.idOut==0}"></div>
+                                            <div th:text="'状态：已解决'" th:if="${all.idOut!=0}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">
+                                            关闭
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:if="${page.hasPreviousPage}">
+                        <a class="page-link" th:href="@{'/user/urban/'+${city}+'/1'}">首页</a>
+                    </li>
+                    <li class="page-item disabled" th:if="${!page.hasPreviousPage}">
+                        <a class="page-link">首页</a>
+                    </li>
+                    <li class="page-item" th:if="${page.hasPreviousPage}">
+                        <a class="page-link" th:href="@{'/user/urban/'+${city}+'/'+${page.prePage}}">&laquo;</a>
+                    </li>
+                    <li class="page-item disabled" th:if="${!page.hasPreviousPage}">
+                        <a class="page-link">&laquo;</a>
+                    </li>
+                    <p th:each="num : ${page.navigatepageNums}">
+                        <li class="page-item active" th:if="${page.pageNum == num}">
+                            <a class="page-link" th:href="@{'/user/urban/'+${city}+'/'+${num}}" th:text="${num}"></a>
+                        </li>
+                        <li class="page-item" th:if="${page.pageNum != num}">
+                            <a class="page-link" th:href="@{'/user/urban/'+${city}+'/'+${num}}" th:text="${num}"></a>
+                        </li>
+                    </p>
+                    <li class="page-item" th:if="${page.hasNextPage}">
+                        <a class="page-link" th:href="@{'/user/urban/'+${city}+'/'+${page.nextPage}}">&raquo;</a>
+                    </li>
+                    <li class="page-item disabled" th:if="${!page.hasNextPage}">
+                        <a class="page-link">&raquo;</a>
+                    </li>
+                    <li class="page-item" th:if="${page.hasNextPage}">
+                        <a class="page-link" th:href="@{'/user/urban/'+${city}+'/'+${page.pages}}">末页</a>
+                    </li>
+                    <li  class="page-item disabled" th:if="${!page.hasNextPage}">
+                        <a class="page-link">末页</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    <br>
+    <div th:replace="/users/module/user::footer"></div>
+</div>
+
+</body>
+</html>

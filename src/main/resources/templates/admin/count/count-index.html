@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN" th:with="active='admin-index'">
+<head>
+    <meta charset="utf-8">
+    <title>AQIS 管理员</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="robots" content=""/>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" media="all"/>
+    <link rel="stylesheet" href="/css/style.css" media="all"/>
+
+
+</head>
+<body>
+<!--顶部导航条-->
+<div th:replace="/admin/common/common-board::dashboard-top"></div>
+<!--左侧导航条-->
+<div th:replace="/admin/common/common-board::dashboard-left"></div>
+
+<section class="content-top">
+
+    <div class="widget-container">
+        <section class="widget">
+            <header>
+                <span class="icon">&#128318;</span>
+                <hgroup>
+                    <h1>AQI实测数据统计分析</h1>
+                    <h2>Facts &amp; data</h2>
+                </hgroup>
+            </header>
+            <div class="content">
+                <section class="stats-wrapper">
+                    <a th:href="@{/admin/aqiover/1}">
+                        <div class="stats-countindex">
+                            <p><span>以省为分组的AQI浓度等级超标数量</span></p>
+                        </div>
+                    </a>
+                    <a th:href="@{/admin/count-aqi}">
+
+                        <div class="stats-countindex">
+                            <p><span>以AQI六个等级为分组的AQI浓度等级超标数量</span></p>
+                        </div>
+                    </a>
+                    <a th:href="@{/admin/month}">
+                        <div class="stats-countindex">
+                            <p><span>过去10个月, 每月的AQI浓度超标数量</span></p>
+                        </div>
+                    </a>
+                </section>
+
+            </div>
+        </section>
+        <!--
+                <section class="widget small">
+                    <header>
+                        <span class="icon">&#128363;</span>
+                        <hgroup>
+                            <h1>最新动态</h1>
+                            <h2>Insiders news</h2>
+                        </hgroup>
+                        <aside>
+                            <span>
+                                <a href="#">&#9881;</a>
+                                <ul class="settings-dd">
+                                    <li><label>Option a</label><input type="checkbox"/></li>
+                                    <li><label>Option b</label><input type="checkbox" checked="checked"/></li>
+                                    <li><label>Option c</label><input type="checkbox"/></li>
+                                </ul>
+                            </span>
+                        </aside>
+                    </header>
+                    <div class="content no-padding timeline">
+                        <div class="tl-post">
+                            <span class="icon">&#128206;</span>
+                            <p><a href="#">John Doe</a> attached an image to a blog post.</p>
+                        </div>
+                        <div class="tl-post">
+                            <span class="icon">&#59172;</span>
+                            <p><a href="#">John Doe</a> added his location.</p>
+                        </div>
+                        <div class="tl-post">
+                            <span class="icon">&#59170;</span>
+                            <p><a href="#">John Doe</a> edited his profile.</p>
+                        </div>
+                        <div class="tl-post">
+                            <span class="icon">&#9993;</span>
+                            <p><a href="#">John Doe</a> has sent you private message.</p>
+                        </div>
+                        <div class="pie graph-area"></div>
+                    </div>
+                </section>-->
+
+    </div>
+    <div class="widget-container">
+        <div th:replace="/admin/common/common-board::dashboard-footer"></div>
+
+    </div>
+</section>
+<script src="/js/admin-common.js" type="text/javascript"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.wysiwyg.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/cycle.js"></script>
+<script src="/js/jquery.checkbox.min.js"></script>
+<script src="/js/flot.js"></script>
+<script src="/js/flot.resize.js"></script>
+<script src="/js/flot-graphs.js"></script>
+<script src="/js/flot-time.js"></script>
+<script src="/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript">
+    // Feature slider for graphs
+    $('.cycle').cycle({
+        fx: "scrollHorz",
+        timeout: 0,
+        slideResize: 0,
+        prev: '.left-btn',
+        next: '.right-btn'
+    });
+</script>
+</body>
+</html>

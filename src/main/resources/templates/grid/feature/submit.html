@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title th:text="${districtCity.ciName}+'空气质量信息填报'"></title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/grid/static/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/grid/static/index/css/style.css}" rel="stylesheet">
+    <script th:src="@{/grid/static/index/js/jquery.min.js}"></script>
+    <script th:src="@{/grid/static/index/js/popper.min.js}"></script>
+    <script th:src="@{/grid/static/index/js/bootstrap.min.js}"></script>
+    <script th:src="@{/grid/static/index/js/scripts.js}"></script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="/grid/module/grid::header"></div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-center" th:text="${districtCity.ciName}+' 空气质量信息填报'">
+            </h4>
+            <a id="modal-471703" href="#modal-container-471704" class="dropdown-item text-center text-primary" data-toggle="modal">查看空气评级信息</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal fade" id="modal-container-471704" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">
+                                空气评级信息
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                           <img th:src="@{/grid/photo/01.png}" width="100%" class="col-center">
+                            <br><br>
+                           <img th:src="@{/grid/photo/02.png}" width="100%" class="col-center">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">
+                                关闭
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-dismissible alert-danger" th:if="${judgment==0}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>警告！</strong> <br> 内容填写不完整，请补全内容！
+            </div>
+            <div class="alert alert-dismissible alert-danger" th:if="${judgment==2}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>警告！</strong> <br> 填写的空气污染物值请输入纯数字或纯小数，请不要输入其他字符！
+            </div>
+            <form method="post" th:action="@{/grid/submithandle}" enctype="multipart/form-data">
+                <input type="hidden" name="woCid" th:value="${id}">
+                <div class="form-group">
+                    <label for="location1">SO2值（ug/m3）</label>
+                    <input type="text" name="woSo" class="form-control" id="location1" placeholder="请输入您检测的SO2值（ug/m3）">
+                </div>
+                <div class="form-group">
+                    <label for="location2">CO值（ug/m3）</label>
+                    <input type="text" name="woCo" class="form-control" id="location2" placeholder="请输入您检测的CO值（ug/m3）">
+                </div>
+                <div class="form-group">
+                    <label for="location3">PM2.5值（ug/m3）</label>
+                    <input type="text" name="woPm" class="form-control" id="location3" placeholder="请输入您检测的PM2.5值（ug/m3）">
+                </div>
+                <div class="form-group">
+                    <label for="bind1">上传空气质量图片</label>
+                    <br>
+                    <input type="file" class="form-control-file" id="bind1" aria-describedby="fileHelp" name="file1">
+                    <small id="fileHelp" class="form-text text-muted">———请上传您的空气检测仪图片———</small>
+                </div>
+                <br>
+                <div class="form-group d-flex justify-content-center">
+                   <input class="btn btn-primary" type="submit" value="提交"/>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    <br>
+    <div th:replace="/grid/module/grid::footer"></div>
+</div>
+
+</body>
+</html>

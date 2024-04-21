@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN" th:with="active='count-month'">
+<head>
+    <meta charset="utf-8">
+    <title>AQIS 管理员</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="robots" content=""/>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" media="all"/>
+    <link rel="stylesheet" href="/css/style.css" media="all"/>
+
+
+
+</head>
+<body>
+<!--顶部导航条-->
+<div th:replace="/admin/common/common-board::dashboard-top"></div>
+<!--左侧导航条-->
+<div th:replace="/admin/common/common-board::dashboard-left"></div>
+
+<section class="content-top">
+
+    <div class="widget-container">
+        <section class="widget">
+            <header>
+                <span class="icon">&#128318;</span>
+                <hgroup>
+                    <h1>过去十个月，每个月的AQI超标数量</h1>
+                    <h2>Facts &amp; data</h2>
+                </hgroup>
+            </header>
+            <div class="content">
+                <section class="stats-wrapper">
+                    <div class="stats">
+                        <p><span th:text="${month1}"></span></p>
+                        <p>前1个月-前2个月</p>
+
+                    </div>
+
+                    <div class="stats">
+                        <p><span th:text="${month2}"></span></p>
+                        <p>前2个月-前3个月</p>
+                    </div>
+                </section>
+                <section class="stats-wrapper">
+                    <div class="stats">
+                        <p><span th:text="${month3}"></span></p>
+                        <p>前3个月-前4个月</p>
+                    </div>
+                    <div class="stats">
+                        <p><span th:text="${month4}"></span></p>
+                        <p>前4个月-前5个月</p>
+                    </div>
+
+                </section>
+                <section class="stats-wrapper">
+                    <div class="stats">
+                            <p><span th:text="${month5}"></span></p>
+                            <p>前5个月-前6个月</p>
+                        </a>
+                    </div>
+                    <div class="stats">
+                            <p><span th:text="${month6}"></span></p>
+                            <p>前6个月-前7个月</p>
+                    </div>
+                </section>
+                <section class="stats-wrapper">
+                    <div class="stats">
+                            <p><span th:text="${month7}"></span></p>
+                            <p>前7个月-前8个月</p>
+
+                    </div>
+                    <div class="stats">
+                            <p><span th:text="${month8}"></span></p>
+                            <p>前8个月-前9个月</p>
+
+                    </div>
+                </section>
+                <section class="stats-wrapper">
+                    <div class="stats">
+                            <p><span th:text="${month9}"></span></p>
+                            <p>前9个月-前10个月</p>
+                    </div>
+                    <div class="stats">
+                            <p><span th:text="${month10}"></span></p>
+                            <p>前10个月-前11个月</p>
+                    </div>
+                </section>
+
+            </div>
+        </section>
+<!--
+        <section class="widget small">
+            <header>
+                <span class="icon">&#128363;</span>
+                <hgroup>
+                    <h1>最新动态</h1>
+                    <h2>Insiders news</h2>
+                </hgroup>
+                <aside>
+					<span>
+						<a href="#">&#9881;</a>
+						<ul class="settings-dd">
+							<li><label>Option a</label><input type="checkbox"/></li>
+							<li><label>Option b</label><input type="checkbox" checked="checked"/></li>
+							<li><label>Option c</label><input type="checkbox"/></li>
+						</ul>
+					</span>
+                </aside>
+            </header>
+            <div class="content no-padding timeline">
+                <div class="tl-post">
+                    <span class="icon">&#128206;</span>
+                    <p><a href="#">John Doe</a> attached an image to a blog post.</p>
+                </div>
+                <div class="tl-post">
+                    <span class="icon">&#59172;</span>
+                    <p><a href="#">John Doe</a> added his location.</p>
+                </div>
+                <div class="tl-post">
+                    <span class="icon">&#59170;</span>
+                    <p><a href="#">John Doe</a> edited his profile.</p>
+                </div>
+                <div class="tl-post">
+                    <span class="icon">&#9993;</span>
+                    <p><a href="#">John Doe</a> has sent you private message.</p>
+                </div>
+                <div class="pie graph-area"></div>
+            </div>
+        </section>-->
+
+    </div>
+    <div class="widget-container">
+        <div th:replace="/admin/common/common-board::dashboard-footer"></div>
+
+    </div>
+</section>
+<script src="/js/admin-common.js" type="text/javascript"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.wysiwyg.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/cycle.js"></script>
+<script src="/js/jquery.checkbox.min.js"></script>
+<script src="/js/flot.js"></script>
+<script src="/js/flot.resize.js"></script>
+<script src="/js/flot-graphs.js"></script>
+<script src="/js/flot-time.js"></script>
+<script src="/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript">
+    // Feature slider for graphs
+    $('.cycle').cycle({
+        fx: "scrollHorz",
+        timeout: 0,
+        slideResize: 0,
+        prev: '.left-btn',
+        next: '.right-btn'
+    });
+</script>
+</body>
+</html>

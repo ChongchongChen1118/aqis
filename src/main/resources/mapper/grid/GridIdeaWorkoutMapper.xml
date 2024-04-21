@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neu.grid.mapper.GridIdeaWorkoutMapper">
+	<select id="selectAllWorkout" resultType="com.neu.grid.dto.GridIdeaWorkoutDTO">
+		select i.*,w.*,d.ci_name,di.pr_name,aq.aq_name,aq.aq_color,ins.ins_name
+		from idea i
+		    inner join district_city d on i.id_city=d.ci_id
+		    inner join district_province di on d.ci_cid=di.pr_id
+		    inner join idea_workout w on i.id_id=w.wo_cid
+		    inner join aqi aq on w.wo_aqi=aq.aq_id
+		    inner join ident_inspector ins on ins.ins_cid=w.wo_ins_cid
+		where i.id_out=1 and i.id_inspector=#{id}
+		order by w.wo_date desc
+	</select>
+	<select id="selectOneWorkout" resultType="com.neu.grid.dto.GridIdeaWorkoutDTO">
+		select i.*,w.*,d.ci_name,di.pr_name,aq.aq_name,aq.aq_color,ins.ins_name
+		from idea i
+				 inner join district_city d on i.id_city=d.ci_id
+				 inner join district_province di on d.ci_cid=di.pr_id
+				 inner join idea_workout w on i.id_id=w.wo_cid
+				 inner join aqi aq on w.wo_aqi=aq.aq_id
+				 inner join ident_inspector ins on ins.ins_cid=w.wo_ins_cid
+		where i.id_out=1 and i.id_inspector=#{id}
+		order by w.wo_date desc
+	</select>
+</mapper>
